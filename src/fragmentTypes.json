@@ -1,0 +1,1 @@
+{"__schema":{"types":[{"kind":"INTERFACE","name":"Accessory","possibleTypes":[{"name":"Light"},{"name":"Door"},{"name":"Thermostat"},{"name":"Outlet"}]}]}}
