@@ -4,7 +4,7 @@ import "./index.css";
 import App from "./App";
 import registerServiceWorker from "./registerServiceWorker";
 import { ApolloClient } from "apollo-client";
-import { HttpLink } from "apollo-link-http";
+import { BatchHttpLink } from "apollo-link-batch-http";
 import {
   InMemoryCache,
   IntrospectionFragmentMatcher
@@ -17,7 +17,7 @@ const fragmentMatcher = new IntrospectionFragmentMatcher({
 });
 
 const client = new ApolloClient({
-  link: new HttpLink({ uri: "http://localhost:4005/graphql" }),
+  link: new BatchHttpLink({ uri: "http://localhost:4005/graphql" }),
   cache: new InMemoryCache({ fragmentMatcher })
 });
 
