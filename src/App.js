@@ -3,6 +3,7 @@ import "./App.css";
 import { graphql } from "react-apollo";
 import gql from "graphql-tag";
 import Hubname from "./Hubname";
+import SetHubname from "./SetHubname";
 import AccessoryList from "./AccessoryList";
 
 class App extends Component {
@@ -15,6 +16,7 @@ class App extends Component {
           <p className="loading">{this.props.data.loading && "Loading..."}</p>
         </header>
         <Hubname />
+        <SetHubname />
         <p className="App-intro">
           Uptime: <span>{system && system.uptime}</span>
         </p>
