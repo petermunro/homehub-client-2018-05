@@ -1,4 +1,22 @@
 import React, { Component } from "react";
+import gql from "graphql-tag";
+import { graphql } from "react-apollo";
+
+const SetHubnameMutation = gql`
+  mutation SetHubname($newHubname: String!) {
+    setHubname(name: $newHubname) {
+      hubname
+    }
+  }
+`;
+
+const GetHubnameQuery = gql`
+  query getHubname {
+    system {
+      hubname
+    }
+  }
+`;
 
 class SetHubname extends Component {
   constructor(props) {
@@ -32,7 +50,23 @@ class SetHubname extends Component {
     // send the mutation to the GraphQL server
     console.log(`Setting hub name to ${this.state.hubname}`);
     event.preventDefault();
+
+    this.props
+      .mutate({
+        variables: { newHubname: this.state.hubname },
+        update: (proxy, { data: { setHubname } }) => {
+          const cachedData = proxy.readQuery({ query: GetHubnameQuery });
+          cachedData.system.hubname = setHubname.hubname;
+          proxy.writeQuery({ query: GetHubnameQuery, data: cachedData });
+        }
+      })
+      .then(({ data }) => {
+        console.log("received data:", data);
+      })
+      .catch(error => {
+        console.log(`Error:`, error);
+      });
   }
 }
 
-export default SetHubname;
+export default graphql(SetHubnameMutation)(SetHubname);
