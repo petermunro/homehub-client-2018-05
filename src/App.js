@@ -5,6 +5,7 @@ import gql from "graphql-tag";
 import Hubname from "./Hubname2";
 import SetHubname from "./SetHubname";
 import AccessoryList from "./AccessoryList";
+import AddLight from "./AddLight";
 
 class App extends Component {
   render() {
@@ -17,6 +18,7 @@ class App extends Component {
         </header>
         <Hubname />
         <SetHubname />
+        <AddLight />
         <p className="App-intro">
           Uptime: <span>{system && system.uptime}</span>
         </p>
@@ -30,7 +32,6 @@ const MyQuery = gql`
   query MyQuery {
     system {
       uptime
-      uptimeDelayed
     }
   }
 `;
