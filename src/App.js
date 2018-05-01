@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import "./App.css";
 import { graphql } from "react-apollo";
 import gql from "graphql-tag";
-import Hubname from "./Hubname";
+import Hubname from "./Hubname2";
 import SetHubname from "./SetHubname";
 import AccessoryList from "./AccessoryList";
 
