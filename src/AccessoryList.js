@@ -3,31 +3,24 @@ import gql from "graphql-tag";
 import { graphql } from "react-apollo";
 import Accessory from "./Accessory";
 import Light from "./Light";
+import Outlet from "./Outlet";
+import Door from "./Door";
+import Thermostat from "./Thermostat";
+
+const accessoryMap = new Map();
+accessoryMap.set("Light", Light);
+accessoryMap.set("Outlet", Outlet);
+accessoryMap.set("Door", Door);
+accessoryMap.set("Thermostat", Thermostat);
 
 class AccessoryList extends Component {
   render() {
     const accessories = this.props.data.accessories || [];
     const accessoryList = accessories.map(accessory => {
-      if (accessory.__typename === "Light") {
-        return (
-          <Light
-            id={accessory.id}
-            name={accessory.name}
-            key={accessory.id}
-            brightness={accessory.brightnessLevel}
-            manufacturer={accessory.manufacturer}
-          />
-        );
-      } else {
-        return (
-          <Accessory
-            id={accessory.id}
-            name={accessory.name}
-            key={accessory.id}
-          />
-        );
-      }
+      const TheAccessory = accessoryMap.get(accessory.__typename) || Accessory;
+      return <TheAccessory accessory={accessory} key={accessory.id} />;
     });
+
     return (
       <div>
         <h2>Accessories</h2>
@@ -46,6 +39,17 @@ const AccessoryListQuery = gql`
       ... on Light {
         brightnessLevel
         manufacturer
+      }
+
+      ... on Outlet {
+        isOn
+      }
+      ... on Thermostat {
+        temperature
+      }
+      ... on Door {
+        isClosed
+        isLocked
       }
     }
   }

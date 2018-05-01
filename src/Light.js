@@ -1,11 +1,11 @@
 import React from "react";
 
-const Light = props => (
+const Light = ({ accessory }) => (
   <div>
-    <h3>{props.name}</h3>
-    <p>{props.id}</p>
-    <p>Brightness: {props.brightnessLevel}</p>
-    <p>Manufacturer: {props.manufacturer}</p>
+    <h3>{accessory.name}</h3>
+    <p>{accessory.id}</p>
+    <p>Brightness: {accessory.brightnessLevel}</p>
+    <p>Manufacturer: {accessory.manufacturer}</p>
   </div>
 );
 
